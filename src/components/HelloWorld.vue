@@ -12,12 +12,6 @@
     <button class="btn btn-success" @click="getAsyncData">Subscribirse</button>-->
     <div class="row pt-4">
       <div class="col">
-        <ul class="text-left">
-          <li
-            v-for="item  in items"
-            :key="item.id"
-          >Fecha {{ item.fecha }} - Los números son: {{ item.numbers }} - Ganancias: {{ item.ganancias }}€</li>
-        </ul>
         <!-- Tabla de contenido -->
         <table class="table table-striped table-bordered">
           <thead>
