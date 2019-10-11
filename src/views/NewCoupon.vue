@@ -11,6 +11,7 @@
               class="card-title"
               v-if="numbers.length <= 0"
             >Generar una nueva apuesta de euromillones para guardar.</h5>
+            <div v-if="msgSuccess" class="alert alert-success" role="alert">{{ msgSuccess }}</div>
             <div class="container">
               <ul class="list-group list-group-horizontal">
                 <li
@@ -26,7 +27,7 @@
               </ul>
             </div>
             <button class="btn btn-primary" @click="GenerarNumeros">Generar números aleatorios</button>
-            <button class="btn btn-success ml-4">Guardar apuesta</button>
+            <button v-if="!msgSuccess" class="btn btn-success ml-4" @click="addData">Guardar apuesta</button>
           </div>
         </div>
       </div>
@@ -35,15 +36,37 @@
 </template>
 
 <script>
+import db from "../firebase.js";
 export default {
   data() {
     return {
       numbers: [],
-      stars: []
+      stars: [],
+      msgSuccess: ""
     };
   },
   methods: {
+    addData() {
+      const NewFecha = new Date();
+      let fecha = `${NewFecha.getDate()}/${NewFecha.getMonth() +
+        1}/${NewFecha.getFullYear()}`;
+      db.collection("cupones")
+        .add({
+          numbers: this.numbers,
+          stars: this.stars,
+          fecha,
+          ganancias: 0
+        })
+        .then(docRef => {
+          this.msgSuccess = "Datos añadidos correctamente";
+          console.log("Document añadido correctamente con ID: ", docRef.id);
+        })
+        .catch(err => console.log("Error al cargar el archivo", err));
+      this.numbers = [];
+      this.stars = [];
+    },
     GenerarNumeros() {
+      this.msgSuccess = "";
       this.numbers = [];
       this.stars = [];
       const numMax = 50;
@@ -73,6 +96,9 @@ export default {
         return a - b;
       });
     }
+  },
+  created() {
+    this.msgSuccess = "";
   }
 };
 </script>
