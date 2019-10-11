@@ -7,61 +7,63 @@
           <h2>Introduce alguna apuesta para comenzar</h2>
           <router-link class="btn btn-primary text-white" to="/new-coupon">Generar números</router-link>
         </div>
-        <!-- Tabla de contenido -->
-        <table class="table table-striped table-bordered" v-if="items.length">
-          <thead>
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Fecha</th>
-              <th scope="col">Números</th>
-              <th scope="col">Estrellas</th>
-              <th scope="col">Ganancias</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="item  in items" :key="item.id">
-              <td>
-                <button type="button" class="btn btn-warning btn-sm">Editar</button>
-                <button
-                  type="button"
-                  class="btn btn-danger btn-sm"
-                  @click="DeleteDoc(item.id)"
-                >Borrar apuesta</button>
-              </td>
-              <td>{{ item.fecha }}</td>
-              <td id="numbers" class="center-align">
-                <ul class="list-group list-group-horizontal">
-                  <li
-                    class="list-group-item"
+        <!-- Comienzo tabla de contenido -->
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered" v-if="items.length">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Números</th>
+                <th scope="col">Estrellas</th>
+                <th scope="col">Ganancias</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="item  in items" :key="item.id">
+                <td>
+                  <button type="button" class="btn btn-warning btn-sm">Editar</button>
+                  <button
+                    type="button"
+                    class="btn btn-danger btn-sm"
+                    @click="DeleteDoc(item.id)"
+                  >Borrar apuesta</button>
+                </td>
+                <td>{{ item.fecha }}</td>
+                <td id="numbers">
+                  <div
                     v-for="number in item.numbers"
                     :key="number.id"
-                  >{{ number }}</li>
-                </ul>
-              </td>
-              <td id="stars">
-                <ul class="list-group list-group-horizontal">
-                  <li
-                    class="list-group-item list-group-item-warning"
+                    class="alert alert-info"
+                    role="alert"
+                  >
+                    <span>{{ number }}</span>
+                  </div>
+                </td>
+                <td id="stars">
+                  <div
                     v-for="star in item.stars"
                     :key="star.id"
-                  >{{ star }}</li>
-                </ul>
-              </td>
-              <td>
-                {{ item.ganancias }}€
-                <button
-                  v-if="!item.ganancias"
-                  type="button"
-                  class="btn btn-success btn-sm"
-                  data-toggle="modal"
-                  data-target="#modalGanancia"
-                  @click="setIdGanancias(item.id)"
-                >Ganaste algo?</button>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-        <!-- Tabla de contenido -->
+                    class="alert alert-warning"
+                    role="alert"
+                  >{{ star }}</div>
+                </td>
+                <td>
+                  <span v-if="item.ganancias">{{ item.ganancias }}€</span>
+                  <button
+                    v-if="!item.ganancias"
+                    type="button"
+                    class="btn btn-success btn-sm"
+                    data-toggle="modal"
+                    data-target="#modalGanancia"
+                    @click="setIdGanancias(item.id)"
+                  >Añadir ganancias</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Fin tabla de contenido -->
         {{ itemsActualizados }}
         <!-- Comienza el modal -->
         <div
@@ -108,6 +110,7 @@
           </div>
         </div>
         <!-- Termina el modal -->
+        <!-- Tarjetas inferiores -->
         <div class="row">
           <div class="col">
             <div class="card">
@@ -126,6 +129,7 @@
             </div>
           </div>
         </div>
+        <!-- Fin de Tarjetas inferiores -->
       </div>
     </div>
   </div>
@@ -256,6 +260,8 @@ td.center-align {
   display: flex;
   justify-content: center;
 }
+td {
+}
 ul.list-group {
   display: flex;
   justify-content: center;
@@ -270,6 +276,14 @@ ul.list-group {
 p.card-text {
   font-size: 2.5em;
   font-weight: bold;
+}
+.alert {
+  display: inline-block;
+  margin: 0 4px;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
 }
 </style>
 
