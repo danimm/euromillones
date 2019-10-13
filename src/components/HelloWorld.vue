@@ -12,7 +12,7 @@
           <table class="table table-striped table-bordered" v-if="items.length">
             <thead>
               <tr>
-                <th scope="col">#</th>
+                <th scope="col">Acciones</th>
                 <th scope="col">Fecha</th>
                 <th scope="col">Números</th>
                 <th scope="col">Estrellas</th>
@@ -22,7 +22,7 @@
             <tbody>
               <tr v-for="item  in items" :key="item.id">
                 <td>
-                  <button type="button" class="btn btn-warning btn-sm">Editar</button>
+                  <button type="button" class="btn btn-warning btn-sm">Editar apuesta</button>
                   <button
                     type="button"
                     class="btn btn-danger btn-sm"
@@ -64,7 +64,8 @@
           </table>
         </div>
         <!-- Fin tabla de contenido -->
-        {{ itemsActualizados }}
+        <em-table :items="items" @delete="DeleteDoc" @setGanancias="setIdGanancias" />
+        <!-- {{ itemsActualizados }} -->
         <!-- Comienza el modal -->
         <div
           class="modal fade"
@@ -137,12 +138,16 @@
 
 <script>
 import db from "../firebase.js";
+import EmTable from "./Table.vue";
 
 export default {
   name: "HelloWorld",
   props: {
     msg: String,
     imageUrl: String
+  },
+  components: {
+    EmTable
   },
   data() {
     return {
@@ -154,6 +159,9 @@ export default {
       items: [],
       total: 0
     };
+  },
+  mounted: function() {
+    return this.itemsActualizados;
   },
   computed: {
     itemsActualizados() {
@@ -234,6 +242,7 @@ img {
 button {
   color: white;
   margin-left: 10px;
+  // margin-bottom: 10px;
   font-size: 15px;
 }
 button:hover {
