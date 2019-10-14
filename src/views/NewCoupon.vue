@@ -64,6 +64,7 @@ export default {
         .catch(err => console.log("Error al cargar el archivo", err));
       this.numbers = [];
       this.stars = [];
+      this.$router.push("/");
     },
     GenerarNumeros() {
       this.msgSuccess = "";

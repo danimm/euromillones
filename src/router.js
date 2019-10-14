@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Home from './views/Home.vue'
 import NewCoupon from './views/NewCoupon.vue'
+import Edit from './views/Edit.vue'
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/new-coupon',
       name: 'new-coupon',
       component: NewCoupon
+    },
+    {
+      path: '/edit/:id',
+      component: Edit,
+      name: 'edit'
     },
     {
       path: '/about',

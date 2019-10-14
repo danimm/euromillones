@@ -3,7 +3,7 @@
     <table class="table table-striped table-bordered" v-if="items.length">
       <thead>
         <tr>
-          <th scope="col">#</th>
+          <th scope="col">Acciones</th>
           <th scope="col">Fecha</th>
           <th scope="col">Números</th>
           <th scope="col">Estrellas</th>
@@ -13,7 +13,11 @@
       <tbody>
         <tr v-for="item  in items" :key="item.id">
           <td>
-            <button type="button" class="btn btn-warning btn-sm">Editar</button>
+            <button
+              type="button"
+              class="btn btn-warning btn-sm"
+              @click="goToEdit(item.id)"
+            >Editar apuesta</button>
             <button
               type="button"
               class="btn btn-danger btn-sm"
@@ -68,6 +72,9 @@ export default {
     },
     setGanancias(id) {
       this.$emit("setGanancias", id);
+    },
+    goToEdit(id) {
+      this.$router.push({ name: "edit", params: { id } });
     }
   }
 };
@@ -81,6 +88,9 @@ button {
 }
 button:hover {
   cursor: pointer;
+}
+.btn-warning {
+  color: black;
 }
 .alert {
   display: inline-block;
