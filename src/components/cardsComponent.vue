@@ -12,7 +12,7 @@
     <div class="col">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Ganancias:</h5>
+          <h5 class="card-title">Ingresos:</h5>
           <p class="card-text ganancias">{{ totalGanancias }} €</p>
         </div>
       </div>
@@ -20,7 +20,7 @@
     <div class="col">
       <div class="card">
         <div class="card-body">
-          <h5 class="card-title">Total:</h5>
+          <h5 class="card-title">Balance:</h5>
           <p class="card-text inversion" :class="isPositive">{{ total }} €</p>
         </div>
       </div>

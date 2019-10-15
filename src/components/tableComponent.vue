@@ -21,6 +21,8 @@
             <button
               type="button"
               class="btn btn-danger btn-sm"
+              data-toggle="modal"
+              data-target="#modalConfirmar"
               @click="DeleteDoc(item.id)"
             >Borrar apuesta</button>
           </td>
@@ -44,7 +46,7 @@
             >{{ star }}</div>
           </td>
           <td>
-            <span v-if="item.ganancias">{{ item.ganancias }}€</span>
+            <span v-if="item.ganancias">{{ item.ganancias }} €</span>
             <button
               v-if="!item.ganancias"
               type="button"

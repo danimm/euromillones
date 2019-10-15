@@ -1,6 +1,6 @@
 <template>
   <div class="container text-center">
-    <!-- <img :src="imageUrl" alt /> -->
+    <!-- <img src="https://cadenaser00.epimg.net/ser/imagenes/2016/10/04/sociedad/1475569929_714674_1475573551_noticia_normal.jpg" alt /> -->
     <div class="row pt-4">
       <div class="col">
         <div class="container" v-if="!items.length">
