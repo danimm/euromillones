@@ -26,7 +26,8 @@
               @click="DeleteDoc(item.id)"
             >Borrar apuesta</button>
           </td>
-          <td>{{ item.fecha }}</td>
+          <td v-if="item.fecha && item">{{ item.fecha | formatedDate }}</td>
+          <!-- <td>{{ item.fecha.toDate() }}</td> -->
           <td id="numbers">
             <div
               v-for="number in item.numbers"

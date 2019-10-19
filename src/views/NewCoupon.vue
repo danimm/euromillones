@@ -36,6 +36,8 @@
 </template>
 
 <script>
+import firebase from "firebase/app";
+import firestore from "firebase/firestore";
 import db from "../firebase.js";
 export default {
   data() {
@@ -47,14 +49,14 @@ export default {
   },
   methods: {
     addData() {
-      const NewFecha = new Date();
-      let fecha = `${NewFecha.getDate()}/${NewFecha.getMonth() +
-        1}/${NewFecha.getFullYear()}`;
+      // const NewFecha = new Date();
+      // let fecha = `${NewFecha.getDate()}/${NewFecha.getMonth() +
+      //   1}/${NewFecha.getFullYear()}`;
       db.collection("cupones")
         .add({
           numbers: this.numbers,
           stars: this.stars,
-          fecha,
+          fecha: firebase.firestore.FieldValue.serverTimestamp(),
           ganancias: 0
         })
         .then(docRef => {
