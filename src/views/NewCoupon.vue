@@ -81,13 +81,23 @@ export default {
       for (let i = 0; i < 5; i++) {
         const numRandom = () =>
           Math.round(Math.random() * (numMax - numMin) + numMin);
-        this.numbers.push(numRandom());
+        let newNumber = numRandom();
+
+        while (this.numbers.includes(newNumber)) {
+          newNumber = numRandom();
+        }
+        this.numbers.push(newNumber);
       }
 
       for (let i = 0; i < 2; i++) {
         const numRandom = () =>
           Math.round(Math.random() * (starMax - starMin) + starMin);
-        this.stars.push(numRandom());
+        let newStar = numRandom();
+
+        while (this.stars.includes(newStar)) {
+          newStar = numRandom();
+        }
+        this.stars.push(newStar);
       }
       this.OrdenarArrays();
     },
@@ -106,10 +116,18 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 .container {
   display: flex;
   justify-content: center;
-  margin: 20px 0;
+  // margin: 20px 0;
+  .list-group-horizontal {
+    margin-bottom: 20px;
+  }
+}
+@media screen and (max-width: 900px) {
+  .btn-primary {
+    margin-bottom: 20px;
+  }
 }
 </style>

@@ -171,7 +171,7 @@ export default {
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped lang="scss">
+<style lang="scss">
 img {
   max-width: 100%;
   padding-bottom: 20px;
@@ -184,6 +184,20 @@ h3 {
 }
 a {
   color: #42b983;
+}
+.table td,
+.table th {
+  vertical-align: middle;
+}
+.btn-warning {
+  margin-bottom: 10px;
+}
+@media screen and (max-width: 992px) {
+  #numbers {
+    // display: grid;
+    // grid-template-columns: repeat(2, 1fr);
+    // grid-gap: 5px;
+  }
 }
 </style>
 
