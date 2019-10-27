@@ -27,7 +27,11 @@
               </ul>
             </div>
             <button class="btn btn-primary" @click="GenerarNumeros">Generar números aleatorios</button>
-            <button v-if="!msgSuccess" class="btn btn-success ml-4" @click="addData">Guardar apuesta</button>
+            <button
+              v-if="!msgSuccess"
+              class="btn btn-success ml-4"
+              @click="addDataVuex"
+            >Guardar apuesta</button>
           </div>
         </div>
       </div>
@@ -67,6 +71,13 @@ export default {
       this.numbers = [];
       this.stars = [];
       this.$router.push("/");
+    },
+    addDataVuex() {
+      this.$store.commit("addData", {
+        numbers: this.numbers,
+        stars: this.stars
+      });
+      // this.$router.push("/");
     },
     GenerarNumeros() {
       this.msgSuccess = "";
