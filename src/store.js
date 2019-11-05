@@ -35,5 +35,22 @@ export default new Vuex.Store({
       // $router.push({ path: '/' })
     }
   },
-  actions: {}
+  actions: {
+    fetchDataFromFirebase(context, payload) {
+      db.collection('cupones')
+        .orderBy('fecha', 'desc')
+        .get()
+        .then(querySnapshot => {
+          querySnapshot.forEach(doc => {
+            context.state.items.push({
+              id: doc.id,
+              fecha: doc.data().fecha,
+              numbers: doc.data().numbers,
+              stars: doc.data().stars,
+              ganancias: doc.data().ganancias
+            })
+          })
+        })
+    }
+  }
 })

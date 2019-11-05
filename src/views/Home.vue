@@ -8,7 +8,7 @@
           <router-link class="btn btn-primary text-white" to="/new-coupon">Generar números</router-link>
         </div>
         <!-- Comienzo tabla de contenido -->
-        <table-component :items="items" @delete="setIdGanancias" @setGanancias="setIdGanancias" />
+        <!-- < IdGanancias" /> -->
         <!-- Fin tabla de contenido -->
         <!-- {{ itemsActualizados }} -->
         <!-- Comienza el modal -->
@@ -62,6 +62,7 @@
         <!-- Modal Eliminar -->
         <modal-Component @setGanancias="setIdGanancias" @confirmar="DeleteDoc" />
         <!-- Final de Modal Eliminar -->
+        {{ items }}
       </div>
     </div>
   </div>
@@ -73,6 +74,9 @@ import db from "../firebase.js";
 import tableComponent from "@/components/tableComponent.vue";
 import cardsComponent from "@/components/cardsComponent.vue";
 import ModalComponent from "@/components/Home/ModalComponent.vue";
+
+import { mapActions } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "HelloWorld",
@@ -91,29 +95,29 @@ export default {
       idGanancias: "",
       ganancias: 0,
       precioApuesta: 3.5,
-      inversion: 0,
-      items: []
+      inversion: 0
     };
   },
-  mounted: function() {
-    return this.itemsActualizados;
+  created: function() {
+    this.fetchDataFromFirebase();
   },
   computed: {
-    itemsActualizados() {
-      const cuponesRef = db.collection("cupones");
-      cuponesRef.orderBy("fecha", "desc").onSnapshot(docs => {
-        this.items = [];
-        docs.forEach(doc => {
-          this.items.push({
-            id: doc.id,
-            fecha: doc.data().fecha,
-            numbers: doc.data().numbers,
-            stars: doc.data().stars,
-            ganancias: doc.data().ganancias
-          });
-        });
-      });
-    },
+    ...mapState(["items"]),
+    // itemsActualizados() {
+    //   const cuponesRef = db.collection("cupones");
+    //   cuponesRef.orderBy("fecha", "desc").onSnapshot(docs => {
+    //     this.items = [];
+    //     docs.forEach(doc => {
+    //       this.items.push({
+    //         id: doc.id,
+    //         fecha: doc.data().fecha,
+    //         numbers: doc.data().numbers,
+    //         stars: doc.data().stars,
+    //         ganancias: doc.data().ganancias
+    //       });
+    //     });
+    //   });
+    // },
     totalInversion() {
       return this.items.length * this.precioApuesta;
     },
@@ -127,6 +131,7 @@ export default {
     }
   },
   methods: {
+    ...mapActions(["fetchDataFromFirebase"]),
     addData() {
       const NewFecha = new Date();
       let fecha = `${NewFecha.getDate()}/${NewFecha.getMonth() +
