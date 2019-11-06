@@ -9,6 +9,7 @@
         </div>
         <!-- Comienzo tabla de contenido -->
         <!-- < IdGanancias" /> -->
+        <table-component />
         <!-- Fin tabla de contenido -->
         <!-- {{ itemsActualizados }} -->
         <!-- Comienza el modal -->
@@ -62,7 +63,6 @@
         <!-- Modal Eliminar -->
         <modal-Component @setGanancias="setIdGanancias" @confirmar="DeleteDoc" />
         <!-- Final de Modal Eliminar -->
-        {{ items }}
       </div>
     </div>
   </div>
@@ -75,11 +75,8 @@ import tableComponent from "@/components/tableComponent.vue";
 import cardsComponent from "@/components/cardsComponent.vue";
 import ModalComponent from "@/components/Home/ModalComponent.vue";
 
-import { mapActions } from "vuex";
-import { mapState } from "vuex";
-
 export default {
-  name: "HelloWorld",
+  name: "Home",
   props: {
     msg: String,
     imageUrl: String
@@ -95,14 +92,11 @@ export default {
       idGanancias: "",
       ganancias: 0,
       precioApuesta: 3.5,
-      inversion: 0
+      inversion: 0,
+      items: []
     };
   },
-  created: function() {
-    this.fetchDataFromFirebase();
-  },
   computed: {
-    ...mapState(["items"]),
     // itemsActualizados() {
     //   const cuponesRef = db.collection("cupones");
     //   cuponesRef.orderBy("fecha", "desc").onSnapshot(docs => {
@@ -131,7 +125,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["fetchDataFromFirebase"]),
     addData() {
       const NewFecha = new Date();
       let fecha = `${NewFecha.getDate()}/${NewFecha.getMonth() +

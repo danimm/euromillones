@@ -30,20 +30,29 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "cardsComponent",
-  props: {
-    totalGanancias: Number,
-    totalInversion: Number
-  },
   computed: {
+    ...mapState(["items", "precioApuesta"]),
     isPositive: function() {
       return {
         ganancias: this.total >= 0,
         inversion: this.total < 0
       };
     },
-    total: function() {
+    totalInversion() {
+      return this.items.length * this.precioApuesta;
+    },
+    totalGanancias() {
+      let total = 0;
+      this.items.forEach(item => {
+        total += item.ganancias;
+      });
+      console.log(`El total de las ganancias actuales es: ${total}€`);
+      return total;
+    },
+    total() {
       return this.totalGanancias - this.totalInversion;
     }
   }

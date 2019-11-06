@@ -1,5 +1,6 @@
 <template>
   <div class="table-responsive">
+    <p v-if="!items">cargando</p>
     <table class="table table-striped table-bordered" v-if="items.length">
       <thead>
         <tr>
@@ -26,8 +27,8 @@
               @click="DeleteDoc(item.id)"
             >Borrar apuesta</button>
           </td>
+          <!-- Formatear la fecha -->
           <td v-if="item.fecha && item">{{ item.fecha | formatedDate }}</td>
-          <!-- <td>{{ item.fecha.toDate() }}</td> -->
           <td id="numbers">
             <div
               v-for="number in item.numbers"
@@ -64,18 +65,27 @@
 </template>
 
 <script>
+import { mapActions, mapState } from "vuex";
+
 export default {
   name: "tableComponent",
-  props: {
-    items: Array
+  created: function() {
+    // validar si el estado está vacío para no hacer otra llamada
+    // if (this.items.length < 1) {
+    this.fetchDataFromFirebase();
+    // }
+  },
+  computed: {
+    ...mapState(["items"])
   },
   methods: {
-    DeleteDoc(id) {
-      this.$emit("delete", id);
-    },
-    setGanancias(id) {
-      this.$emit("setGanancias", id);
-    },
+    ...mapActions(["fetchDataFromFirebase"]),
+    // DeleteDoc(id) {
+    //   this.$emit("delete", id);
+    // },
+    // setGanancias(id) {
+    //   this.$emit("setGanancias", id);
+    // },
     goToEdit(id) {
       this.$router.push({ name: "edit", params: { id } });
     }

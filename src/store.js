@@ -12,6 +12,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     items: [],
+    precioApuesta: 3.5,
     numbers: [],
     stars: []
   },
@@ -37,10 +38,12 @@ export default new Vuex.Store({
   },
   actions: {
     fetchDataFromFirebase(context, payload) {
+      // vaciar el estado para guardar la llamada
       db.collection('cupones')
         .orderBy('fecha', 'desc')
         .get()
         .then(querySnapshot => {
+          context.state.items = []
           querySnapshot.forEach(doc => {
             context.state.items.push({
               id: doc.id,
@@ -51,6 +54,7 @@ export default new Vuex.Store({
             })
           })
         })
+        .catch(err => console.log(err))
     }
   }
 })
